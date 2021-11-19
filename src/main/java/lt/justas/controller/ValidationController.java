@@ -1,10 +1,8 @@
 package lt.justas.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import lt.justas.model.ValidationResult;
 import lt.justas.model.WorkOrder;
 import lt.justas.persistence.model.ValidationResultDAO;
-import lt.justas.persistence.model.WorkOrderDAO;
 import lt.justas.service.WorkOrderService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +25,12 @@ public class ValidationController {
 
     @PostMapping
     @Transactional
-    public ValidationResult putWorkOrder(@RequestBody WorkOrder workOrder) {
-        return workOrderService.save(workOrder);
+    public ValidationResultDAO putWorkOrder(@RequestBody WorkOrder workOrder) {
+        return workOrderService.validate(workOrder);
     }
 
     @GetMapping("all")
-    public Iterable<WorkOrderDAO> getWorkOrders() {
+    public Iterable<ValidationResultDAO> getWorkOrders() {
         return workOrderService.findAll();
     }
 }

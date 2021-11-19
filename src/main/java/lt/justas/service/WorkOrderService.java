@@ -3,14 +3,13 @@ package lt.justas.service;
 import lombok.extern.slf4j.Slf4j;
 import lt.justas.model.ValidationResult;
 import lt.justas.model.WorkOrder;
-import lt.justas.model.WorkOrderPart;
-import lt.justas.persistence.model.WorkOrderDAO;
-import lt.justas.persistence.model.WorkOrderPartDAO;
-import lt.justas.persistence.repo.WorkOrderRepo;
+import lt.justas.persistence.model.ValidationResultDAO;
+import lt.justas.persistence.repo.ValidationResultRepo;
 import lt.justas.service.validators.WorkOrderValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,21 +19,27 @@ import java.util.stream.Collectors;
 @Transactional
 public class WorkOrderService {
 
-    private final WorkOrderRepo workOrderRepo;
+    private final ValidationResultRepo validationResultRepo;
     private final List<WorkOrderValidator> workOrderValidators;
 
-    public WorkOrderService(WorkOrderRepo workOrderRepo, List<WorkOrderValidator> validators) {
-        this.workOrderRepo = workOrderRepo;
+    public WorkOrderService(ValidationResultRepo validationResultRepo, List<WorkOrderValidator> validators) {
+        this.validationResultRepo = validationResultRepo;
         this.workOrderValidators = validators;
     }
 
-    public ValidationResult save(WorkOrder workOrder) {
-        return ValidationResult.builder()
-                .validationMessages(validate(workOrder))
+    public ValidationResultDAO validate(WorkOrder workOrder) {
+        List<String> validationMessages = getValidationMessages(workOrder);
+        ValidationResult validationResult = ValidationResult.builder()
+                .validationRequestDate(LocalDate.now().toString())
+                .workOrderType(workOrder.getType())
+                .department(workOrder.getDepartment())
+                .valid(validationMessages.isEmpty())
+                .validationMessages(validationMessages)
                 .build();
+        return validationResultRepo.save(map(validationResult));
     }
 
-    private List<String> validate(WorkOrder workOrder) {
+    private List<String> getValidationMessages(WorkOrder workOrder) {
         return workOrderValidators
                 .stream()
                 .filter(workOrderValidator -> workOrderValidator.isApplicable(workOrder))
@@ -44,29 +49,17 @@ public class WorkOrderService {
                 .collect(Collectors.toList());
     }
 
-    public Iterable<WorkOrderDAO> findAll() {
-        return workOrderRepo.findAll();
+    public Iterable<ValidationResultDAO> findAll() {
+        return validationResultRepo.findAll();
     }
 
-    public WorkOrderDAO map(WorkOrder workOrder) {
-        WorkOrderDAO result = WorkOrderDAO.builder()
-                .type(workOrder.getType().name())
-                .department(workOrder.getDepartment())
-                .startDate(workOrder.getStartDate())
-                .endDate(workOrder.getEndDate())
-                .currency(workOrder.getCurrency())
-                .cost(workOrder.getCost())
-                .build();
-        workOrder.getParts()
-                .forEach(part -> result.addPart(map(part)));
-        return result;
-    }
-
-    private WorkOrderPartDAO map(WorkOrderPart workOrderPart) {
-        return WorkOrderPartDAO.builder()
-                .inventoryNumber(workOrderPart.getInventoryNumber())
-                .name(workOrderPart.getName())
-                .count(workOrderPart.getCount())
+    public ValidationResultDAO map(ValidationResult validationResult) {
+        return ValidationResultDAO.builder()
+                .validationRequestDate(validationResult.getValidationRequestDate())
+                .workOrderType(validationResult.getWorkOrderType())
+                .department(validationResult.getDepartment())
+                .valid(validationResult.isValid())
+                .validationMessages(validationResult.getValidationMessages())
                 .build();
     }
 }

@@ -29,7 +29,7 @@ public class AnalysisDateValidator extends RepairWorkOrdersValidator implements 
         LocalDate startDate = LocalDate.parse(workOrder.getStartDate());
         LocalDate endDate = LocalDate.parse(workOrder.getEndDate());
         return analysisDate.isAfter(startDate) && analysisDate.isBefore(endDate) ?
-                empty() : of(format("Analysis data '%s' is not valid", workOrder.getAnalysisDate()));
+                empty() : of(format("Analysis date '%s' is not valid", workOrder.getAnalysisDate()));
     }
 
     @Override

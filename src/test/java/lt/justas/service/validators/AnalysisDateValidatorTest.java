@@ -19,12 +19,12 @@ class AnalysisDateValidatorTest {
                 .endDate("2020-12-31")
                 .analysisDate("2020-05-01")
                 .build()));
-        assertEquals(of("Analysis data '2021-05-01' is not valid"), validator.validate(WorkOrder.builder()
+        assertEquals(of("Analysis date '2021-05-01' is not valid"), validator.validate(WorkOrder.builder()
                 .startDate("2020-01-01")
                 .endDate("2020-12-31")
                 .analysisDate("2021-05-01")
                 .build()));
-        assertEquals(of("Analysis data cannot be empty"), validator.validate(WorkOrder.builder()
+        assertEquals(of("Analysis date cannot be empty"), validator.validate(WorkOrder.builder()
                 .startDate("2020-01-01")
                 .endDate("2020-12-31")
                 .analysisDate(null)

@@ -15,7 +15,7 @@ import static java.util.Optional.of;
 public class EndDateValidator extends AllWorkOrdersValidator implements WorkOrderValidator {
     @Override
     public Optional<String> validate(WorkOrder workOrder) {
-        return nonNull(workOrder.getStartDate()) && LocalDate.parse(workOrder.getStartDate()).isAfter(LocalDate.now()) ?
+        return nonNull(workOrder.getEndDate()) && LocalDate.parse(workOrder.getEndDate()).isAfter(LocalDate.now()) ?
                 empty() : of(format("End date '%s' is not valid", workOrder.getEndDate()));
     }
 
