@@ -1,6 +1,7 @@
 package lt.justas.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import lt.justas.model.ValidationResult;
 import lt.justas.model.WorkOrder;
 import lt.justas.persistence.model.ValidationResultDAO;
 import lt.justas.persistence.model.WorkOrderDAO;
@@ -26,7 +27,7 @@ public class ValidationController {
 
     @PostMapping
     @Transactional
-    public WorkOrderDAO putWorkOrder(@RequestBody WorkOrder workOrder) {
+    public ValidationResult putWorkOrder(@RequestBody WorkOrder workOrder) {
         return workOrderService.save(workOrder);
     }
 

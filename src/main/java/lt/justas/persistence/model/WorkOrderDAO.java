@@ -26,8 +26,8 @@ public class WorkOrderDAO {
     private String currency;
     private Long cost;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "workOrderEntity", orphanRemoval = true)
     @JsonManagedReference
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "workOrderDAO", orphanRemoval = true)
     private Set<WorkOrderPartDAO> parts;
 
     public void addPart(WorkOrderPartDAO part){
