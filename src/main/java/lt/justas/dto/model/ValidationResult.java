@@ -1,8 +1,7 @@
-package lt.justas.model;
+package lt.justas.dto.model;
 
 import lombok.Builder;
 import lombok.Data;
-import lt.justas.service.WorkOrderType;
 
 import java.util.List;
 

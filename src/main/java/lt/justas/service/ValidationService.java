@@ -1,10 +1,10 @@
 package lt.justas.service;
 
 import lombok.extern.slf4j.Slf4j;
-import lt.justas.model.ValidationResult;
-import lt.justas.model.WorkOrder;
-import lt.justas.persistence.model.ValidationResultDAO;
-import lt.justas.persistence.repo.ValidationResultRepo;
+import lt.justas.dto.model.ValidationResult;
+import lt.justas.dto.model.WorkOrder;
+import lt.justas.dao.model.ValidationResultDAO;
+import lt.justas.repo.ValidationResultRepo;
 import lt.justas.service.validators.WorkOrderValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @Transactional
-public class WorkOrderService {
+public class ValidationService {
 
     private final ValidationResultRepo validationResultRepo;
     private final List<WorkOrderValidator> workOrderValidators;
 
-    public WorkOrderService(ValidationResultRepo validationResultRepo, List<WorkOrderValidator> validators) {
+    public ValidationService(ValidationResultRepo validationResultRepo, List<WorkOrderValidator> validators) {
         this.validationResultRepo = validationResultRepo;
         this.workOrderValidators = validators;
     }

@@ -8,8 +8,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan("lt.justas.persistence.model")
-@EnableJpaRepositories("lt.justas.persistence.repo")
+@EntityScan("lt.justas.dao.model")
+@EnableJpaRepositories("lt.justas.repo")
 public class Application extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

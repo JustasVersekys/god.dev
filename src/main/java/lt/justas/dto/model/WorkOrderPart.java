@@ -1,4 +1,4 @@
-package lt.justas.model;
+package lt.justas.dto.model;
 
 import lombok.Data;
 

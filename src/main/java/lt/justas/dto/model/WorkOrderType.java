@@ -1,4 +1,4 @@
-package lt.justas.service;
+package lt.justas.dto.model;
 
 public enum WorkOrderType {
     ANALYSIS,

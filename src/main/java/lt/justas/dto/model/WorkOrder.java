@@ -1,9 +1,8 @@
-package lt.justas.model;
+package lt.justas.dto.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
-import lt.justas.service.WorkOrderType;
 
 import java.util.Set;
 

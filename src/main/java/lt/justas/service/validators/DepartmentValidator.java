@@ -1,6 +1,6 @@
 package lt.justas.service.validators;
 
-import lt.justas.model.WorkOrder;
+import lt.justas.dto.model.WorkOrder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

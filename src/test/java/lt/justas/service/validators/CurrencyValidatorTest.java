@@ -1,9 +1,7 @@
 package lt.justas.service.validators;
 
-import lt.justas.model.WorkOrder;
+import lt.justas.dto.model.WorkOrder;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
