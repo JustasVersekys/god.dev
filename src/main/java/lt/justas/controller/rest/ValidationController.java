@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("validation")
+@RequestMapping("api/validation")
 public class ValidationController {
     private final ValidationService validationService;
 

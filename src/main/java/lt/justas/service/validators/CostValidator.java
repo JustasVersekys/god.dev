@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 import static java.lang.String.format;
+import static java.util.Objects.nonNull;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
@@ -13,7 +14,7 @@ import static java.util.Optional.of;
 public class CostValidator extends AllWorkOrdersValidator implements WorkOrderValidator {
     @Override
     public Optional<String> validate(WorkOrder workOrder) {
-        return workOrder.getCost() > 0 ?
+        return nonNull(workOrder.getCost()) && workOrder.getCost() > 0 ?
                 empty() : of(format("Cost '%s' is not valid", workOrder.getCost()));
     }
 
