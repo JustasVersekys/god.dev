@@ -1,4 +1,4 @@
-package lt.justas.controller;
+package lt.justas.controller.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import lt.justas.dao.model.ValidationResultDAO;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("work-order")
+@RequestMapping("validation")
 public class ValidationController {
     private final ValidationService validationService;
 
@@ -17,12 +17,12 @@ public class ValidationController {
     }
 
     @PostMapping
-    public ValidationResultDAO putWorkOrder(@RequestBody WorkOrder workOrder) {
+    public ValidationResultDAO validateWorkOrder(@RequestBody WorkOrder workOrder) {
         return validationService.validate(workOrder);
     }
 
-    @GetMapping("all")
-    public Iterable<ValidationResultDAO> getWorkOrders() {
+    @GetMapping("history")
+    public Iterable<ValidationResultDAO> getValidationResultHistory() {
         return validationService.findAll();
     }
 }
